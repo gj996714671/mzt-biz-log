@@ -20,7 +20,9 @@ import java.util.regex.Pattern;
  * @author mzt.
  */
 public class LogRecordValueParser implements BeanFactoryAware {
-
+    /**
+     * Pattern.compile("\\{\\s*(\\w*)\\s*\\{(.*?)}}")
+     */
     private static final Pattern pattern = Pattern.compile("\\{\\s*(\\w*)\\s*\\{(.*?)}}");
     public static final String COMMA = ",";
     private final LogRecordExpressionEvaluator expressionEvaluator = new LogRecordExpressionEvaluator();
@@ -51,20 +53,24 @@ public class LogRecordValueParser implements BeanFactoryAware {
     public Map<String, String> processTemplate(Collection<String> templates, MethodExecuteResult methodExecuteResult,
                                                Map<String, String> beforeFunctionNameAndReturnMap) {
         Map<String, String> expressionValues = new HashMap<>();
+        //获取spel表达式所需自定义环境
         EvaluationContext evaluationContext = expressionEvaluator.createEvaluationContext(methodExecuteResult.getMethod(),
                 methodExecuteResult.getArgs(), methodExecuteResult.getTargetClass(), methodExecuteResult.getResult(),
                 methodExecuteResult.getErrorMsg(), beanFactory);
 
         for (String expressionTemplate : templates) {
+            //需要spel解析处理的参数
             if (expressionTemplate.contains("{")) {
                 Matcher matcher = pattern.matcher(expressionTemplate);
                 StringBuffer parsedStr = new StringBuffer();
                 AnnotatedElementKey annotatedElementKey = new AnnotatedElementKey(methodExecuteResult.getMethod(), methodExecuteResult.getTargetClass());
                 boolean flag = true;
+                //匹配上
                 while (matcher.find()) {
 
                     String expression = matcher.group(2);
                     String functionName = matcher.group(1);
+                    //需要对比情况  _DIFF
                     if (DiffParseFunction.diffFunctionName.equals(functionName)) {
                         expression = getDiffFunctionValue(evaluationContext, annotatedElementKey, expression);
                     } else {

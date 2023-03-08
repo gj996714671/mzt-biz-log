@@ -21,6 +21,12 @@ public interface ILogRecordService {
      * @return 操作日志列表
      */
     List<LogRecord> queryLog(String bizNo, String type);
+    /**
+     * 返回所有
+     *
+     * @return 操作日志列表
+     */
+    List<LogRecord> findAll();
 
     /**
      * 返回最多100条记录

@@ -31,6 +31,10 @@ public class DefaultLogRecordServiceImpl implements ILogRecordService {
     }
 
     @Override
+    public List<LogRecord> findAll() {
+        return new ArrayList<>();    }
+
+    @Override
     public List<LogRecord> queryLogByBizNo(String bizNo, String type, String subType) {
         return new ArrayList<>();
     }

@@ -39,7 +39,7 @@ public class OrderBeforeParseFunction implements IParseFunction {
         }
         log.info("###########,{}", value);
         Order order = new Order();
-        order.setProductName("xxxx");
+        order.setProductName("Coulson的");
         return order.getProductName().concat("(").concat(value.toString()).concat(")");
     }
 }

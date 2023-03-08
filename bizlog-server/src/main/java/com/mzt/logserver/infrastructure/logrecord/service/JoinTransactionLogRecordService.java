@@ -39,6 +39,12 @@ public class JoinTransactionLogRecordService implements ILogRecordService {
     }
 
     @Override
+    public List<LogRecord> findAll() {
+        List<LogRecordPO> logRecordPOS = logRecordRepository.list();
+        return LogRecordPO.from(logRecordPOS);
+    }
+
+    @Override
     public List<LogRecord> queryLogByBizNo(String bizNo, String type, String subType) {
         List<LogRecordPO> logRecordPOS = logRecordRepository.queryLog(bizNo, type, subType);
         return LogRecordPO.from(logRecordPOS);

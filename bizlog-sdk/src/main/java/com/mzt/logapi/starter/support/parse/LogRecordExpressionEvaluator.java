@@ -18,10 +18,23 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author mzt.
  */
 public class LogRecordExpressionEvaluator extends CachedExpressionEvaluator {
-
+    /**
+     * 注解的缓存
+     */
     private final Map<AnnotatedElementKey, Method> targetMethodCache = new ConcurrentHashMap<>(64);
+    /**
+     * 表达式缓存
+     */
     private final Map<ExpressionKey, Expression> expressionCache = new ConcurrentHashMap<>(64);
 
+    /**
+     * 解析spel表达式
+     *
+     * @param conditionExpression 要分析的表达式
+     * @param methodKey           执行的方法
+     * @param evalContext         SpEL表达式中进行求值所需的运行时信息，例如要解析表达式的对象、可用的方法和变量等
+     * @return
+     */
     public Object parseExpression(String conditionExpression, AnnotatedElementKey methodKey, EvaluationContext evalContext) {
         return getExpression(this.expressionCache, methodKey, conditionExpression).getValue(evalContext, Object.class);
     }

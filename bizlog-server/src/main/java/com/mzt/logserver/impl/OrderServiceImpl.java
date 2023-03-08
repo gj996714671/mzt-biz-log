@@ -231,7 +231,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    @LogRecord(success = "更新用户{{#user.name}}的订单{ORDER{#order.orderId}}信息,更新内容为...",
+    @LogRecord(success = "更新用户" + "23" + "{{#user.name}}的订单{ORDER{#order.orderId}}信息,更新内容为...",
             type = LogRecordType.USER, bizNo = "{{#user.id}}")
     public boolean testGlobalVariableCover(Order order, User user) {
         return false;

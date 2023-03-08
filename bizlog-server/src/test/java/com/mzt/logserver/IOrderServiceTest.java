@@ -11,6 +11,7 @@ import com.mzt.logserver.pojo.Order;
 import com.mzt.logserver.pojo.User;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 
 import javax.annotation.Resource;
@@ -126,7 +127,7 @@ public class IOrderServiceTest extends BaseTest {
     }
 
     @Test
-    @Sql(scripts = "/sql/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    // @Sql(scripts = "/sql/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void updateOrderBefore() {
         Order order = new Order();
         order.setOrderId(99L);
@@ -559,7 +560,7 @@ public class IOrderServiceTest extends BaseTest {
     }
 
     @Test
-    @Sql(scripts = "/sql/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    // @Sql(scripts = "/sql/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void testSubTypeSpEl() {
         Order order = new Order();
         order.setOrderNo("MT0000011");
